@@ -14,8 +14,5 @@ New-Alias -Name gstatus -Value get-gitstatus
 New-Alias -Name gpull -Value get-gitpull
 New-Alias -Name gpush  -Value get-gitpush
 
-# Add SSH Key
-ssh-add ~/.ssh/id_ed25519 
-
 # Set Oh-My-Posh
 oh-my-posh --init --shell pwsh --config ~\.psprofile\nicolaskapfer.omp.json | Invoke-Expression
