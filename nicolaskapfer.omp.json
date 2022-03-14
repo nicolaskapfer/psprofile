@@ -46,16 +46,6 @@
           "type": "git"
         },
         {
-          "background": "#86BBD8",
-          "foreground": "#ffffff",
-          "powerline_symbol": "\ue0b0",
-          "properties": {
-            "template": " \ue718 {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} "
-          },
-          "style": "powerline",
-          "type": "node"
-        },
-        {
           "background": "#ffffff",
           "foreground": "#5398c2",
           "leading_diamond": "\ue0b6",
@@ -65,28 +55,6 @@
           "style": "diamond",
           "trailing_diamond": "\ue0b4 ",
           "type": "azfunc"
-        },
-        {
-          "background": "#565656",
-          "foreground": "#faa029",
-          "leading_diamond": "\ue0b6",
-          "properties": {
-            "template": "\ue7ad {{.Profile}}{{if .Region}}@{{.Region}}{{end}}"
-          },
-          "style": "diamond",
-          "trailing_diamond": "\ue0b4 ",
-          "type": "aws"
-        },
-        {
-          "background": "#316ce4",
-          "foreground": "#ffffff",
-          "leading_diamond": "\ue0b6",
-          "properties": {
-            "template": "\ufd31 {{.Context}}{{if .Namespace}} :: {{.Namespace}}{{end}}"
-          },
-          "style": "diamond",
-          "trailing_diamond": "\ue0b4",
-          "type": "kubectl"
         },
         {
           "background": "#33658A",
