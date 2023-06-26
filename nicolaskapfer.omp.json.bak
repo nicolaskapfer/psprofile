@@ -7,8 +7,10 @@
         {
           "background": "#2f9c7f",
           "foreground": "#ffffff",
+          "properties": {
+            "template": " {{ if .SSHSession }}\uf817 {{ end }}{{ .UserName }}"
+          },
           "style": "diamond",
-          "template": " {{ if .SSHSession }}\uf817 {{ end }}{{ .UserName }}",
           "type": "session"
         },
         {
@@ -16,12 +18,12 @@
           "foreground": "#ffffff",
           "powerline_symbol": "\ue0b0",
           "properties": {
-            "folder_icon": " \uf07b ",
-            "home_icon": "\uf7dd",
-            "style": "folder"
+              "folder_icon": " \uf07b ",
+              "home_icon": "\uf7dd",
+              "style": "folder",
+              "template": " \uf07b\uf553{{ .Path }} "
           },
           "style": "powerline",
-          "template": " \uf07b\uf553{{ .Path }} ",
           "type": "path"
         },
         {
@@ -37,18 +39,20 @@
           "properties": {
             "branch_icon": "\ue725 ",
             "fetch_status": true,
-            "fetch_upstream_icon": true
+            "fetch_upstream_icon": true,
+            "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{ .BranchStatus }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}<#ef5350> \uf046 {{ .Staging.String }}</>{{ end }} "
           },
           "style": "powerline",
-          "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{ .BranchStatus }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}<#ef5350> \uf046 {{ .Staging.String }}</>{{ end }} ",
           "type": "git"
         },
         {
           "background": "#ffffff",
           "foreground": "#5398c2",
           "leading_diamond": "\ue0b6",
+          "properties": {
+            "template": "\uf104<#f5bf45>\uf0e7</>\uf105 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }}"
+          },
           "style": "diamond",
-          "template": "\uf104<#f5bf45>\uf0e7</>\uf105 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }}",
           "trailing_diamond": "\ue0b4 ",
           "type": "azfunc"
         },
@@ -56,10 +60,10 @@
           "background": "#33658A",
           "foreground": "#ffffff",
           "properties": {
+            "template": " {{ .CurrentDate | date .Format }} ",
             "time_format": "15:04:05"
           },
           "style": "diamond",
-          "template": " {{ .CurrentDate | date .Format }} ",
           "trailing_diamond": "\ue0b0",
           "type": "time"
         }
@@ -68,5 +72,5 @@
     }
   ],
   "final_space": true,
-  "version": 2
+  "version": 1
 }

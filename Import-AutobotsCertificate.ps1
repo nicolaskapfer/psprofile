@@ -10,7 +10,6 @@ $certpwd = ConvertTo-SecureString -String (Set-CredentialFromFile -Type Autobots
 # Import the Certificate
 Import-PFXCertificate -FilePath C:\Users\nicolaskapfer\.credentials\EmmaIT-Autobots.pfx -CertStoreLocation Cert:\LocalMachine\My -Password $certpwd
 
-
 #$certpassword = Set-CredentialFromFile -Type Autobotscertificate | ConvertTo-SecureString
 
 #if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { 
