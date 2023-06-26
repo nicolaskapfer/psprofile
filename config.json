@@ -1,0 +1,77 @@
+{
+    "MGraph": {
+        "Scope": [
+            "User.ReadWrite.All",
+            "Group.ReadWrite.All"
+        ],
+        "Properties": {
+            "Users": [
+                "AccountEnabled",
+                "City",
+                "CompanyName",
+                "Department",
+                "DisplayName",
+                "EmployeeHireDate",
+                "EmployeeId",
+                "EmployeeType",
+                "Givenname",
+                "Id",
+                "JobTitle",
+                "Mail",
+                "MailNickname",
+                "Manager",
+                "OnPremExtensionAttributes",
+                "ProxyAddresses",
+                "State",
+                "StreetAddress",
+                "Surname",
+                "UsageLocation",
+                "UserPrincipalName",
+                "UserType"
+            ],
+            "Groups": [
+                "AssignedLabels",
+                "AssignedLicenses",
+                "DisplayName",
+                "AutoSubscribeNewMembers",
+                "CreatedDateTime",
+                "DeletedDateTime",
+                "Description",
+                "DisplayName",
+                "ExpirationDateTime",
+                "Extensions",
+                "HideFromAddressLists",
+                "Mail",
+                "MailEnabled",
+                "MailNickname",
+                "MemberOf",
+                "Members",
+                "MembershipRule",
+                "Owners",
+                "ProxyAddresses",
+                "RejectedSenders",
+                "SecurityEnabled",
+                "Settings",
+                "Site",
+                "Visibility",
+                "AdditionalProperties"
+            ]
+        }
+    },
+    "Azure": {
+        "Subscriptions": {
+            "EmmaIT": "f5b0abe0-9778-4a73-9d7c-a405ef5e9b55"
+        },
+        "Account": "a.nicolas.kapfer@emam-sleep.com",
+        "VMs": {
+            "Animatronio": {
+                "NSG": "animatronio-nsg",
+                "RG": "SANDBOX",
+                "Rule": "AllowRDP_NicolasKapfer"
+            }
+        }
+    },
+    "HomeOffice": {
+        "Hostname": "ruesselsheim.home-base.me"
+    }
+}
