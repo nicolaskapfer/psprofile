@@ -30,9 +30,9 @@ $PS = @{
 
 Write-Host "    Set Properties for Microsoft.Graph" -ForegroundColor DarkCyan
 $MgProperties = @{
-   Scope  = "User.ReadWrite.All", "Group.ReadWrite.All"
-   Users  = "AccountEnabled","City","CompanyName","Department","DisplayName","EmployeeHireDate","EmployeeId","EmployeeType","Givenname","Id","JobTitle","Mail","MailNickname","Manager","ProxyAddresses","State","StreetAddress","Surname","UsageLocation","UserPrincipalName","UserType"
-   Groups = "AssignedLabels", "AssignedLicenses", "DisplayName", "AutoSubscribeNewMembers", "CreatedDateTime", "DeletedDateTime", "Description", "DisplayName", "ExpirationDateTime", "Extensions", "HideFromAddressLists", "Mail", "MailEnabled", "MailNickname", "MemberOf", "Members", "MembershipRule", "Owners", "ProxyAddresses", "RejectedSenders","SecurityEnabled","Settings","Site", "Visibility", "AdditionalProperties"
+   Scope  = $myconfig.MGraph.Scopes
+   Users  = $myconfig.MGraph.Properties.Users
+   Groups = $myconfig.MGraph.Properties.Groups
 }
 
 Write-Host "    Adding SSH Key" -ForegroundColor DarkCyan
@@ -61,7 +61,7 @@ oh-my-posh --init --shell pwsh --config ~\.psprofile\nicolaskapfer.omp.json | In
 #}
 
 Write-Host "    Connecting to Microsoft Graph..." -ForegroundColor DarkCyan
-Connect-MgGraph -Scopes $MgProperties.Scope
+Connect-MgGraph -Scopes $MgProperties.Scopes
 
 Write-Host "    Connecting to Azure..." -ForegroundColor DarkCyan 
 Connect-AzAccount -Subscription $myconfig.Azure.Subscriptions.EmmaIT -AccountId $myconfig.Azure.Account | Out-Null
