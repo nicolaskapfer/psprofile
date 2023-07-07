@@ -43,28 +43,20 @@ Write-Host "    Initiate Oh-my-Posh" -ForegroundColor DarkCyan
 # Set Oh-My-Posh
 oh-my-posh --init --shell pwsh --config ~\.psprofile\nicolaskapfer.omp.json | Invoke-Expression
 
-# Fix for Connect-ExchangeOnline
-# (https://cloudinfra.net/how-to-fix-error-new-exopssession-create-powershell-session-is-failed-using-oauth/) 
-#if((Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client" -Name "AllowBasic").AllowBasic -eq 0){
-#   Write-Host "    Fixing OAuth for Exchange Online connection"
-#   if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { 
-#      Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"Set-ItemProperty -Path HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client -Name AllowBasic -Value 1`"" -Verb RunAs
-#      exit
-#   }
-#}
+if([string]::IsNullOrEmpty((Get-MgContext))){
+   Write-Host "    Connecting to Microsoft Graph..." -ForegroundColor DarkCyan
+   Connect-MgGraph -Scopes $MgProperties.Scopes
+}else{
+   Write-Host "    Already connected to Microsoft Graph as '$((Get-MgContext).Account)'" -ForegroundColor DarkGreen
+}
 
-# Fix for problematic Certificate (Autobots)
-#Write-Host "    Import Autobots certificate" -ForegroundColor DarkCyan
-#if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { 
-#   Start-Process pwsh.exe "-NoProfile -ExecutionPolicy Bypass -File `".psprofile\Import-AutobotsCertificate.ps1`"" -Verb RunAs
-#   exit
-#}
 
-Write-Host "    Connecting to Microsoft Graph..." -ForegroundColor DarkCyan
-Connect-MgGraph -Scopes $MgProperties.Scopes
-
-Write-Host "    Connecting to Azure..." -ForegroundColor DarkCyan 
-Connect-AzAccount -Subscription $myconfig.Azure.Subscriptions.EmmaIT -AccountId $myconfig.Azure.Account | Out-Null
+if([string]::IsNullOrEmpty((Get-AzContext).Account.Id)){
+   Write-Host "    Connecting to Azure..." -ForegroundColor DarkCyan 
+   Connect-AzAccount -Subscription $myconfig.Azure.Subscriptions.EmmaIT -AccountId $myconfig.Azure.Account | Out-Null
+}else{
+   Write-Host "    Already connected to Azure as '$((Get-AzContext).Account.Id)'" -ForegroundColor DarkGreen
+}
 
 # Change IP Access for Home Office (on Animatronio)
 $homeofficeIP = (Resolve-DnsName $myconfig.HomeOffice.Hostname).IPAddress

@@ -1,42 +1,10 @@
-# Nico's PowerShell Profile
-
-Here is my personal PowerShell profile. 
-
-## Requirements
-The following PowerShell modules are required:
-- Oh-My-Posh (https://github.com/JanDeDobbeleer/oh-my-posh)
-- KNSModulesDocsGenerator (https://github.com/kns7/KNSModulesDocsGenerator)
-
-## Install
-First clone the Repo
-
-```powershell
-git clone git@github.com:nicolaskapfer/psprofile.git ~/.psprofile
-```
-Then link the Profile to "Current User / Current Host" aka `$profile`
-
-```powershell
-New-Item -Path $profile -Target ~\.psprofile\Microsoft.PowerShell_profile.ps1 -Type SymbolicLink
-```
-
-## Configuration
-To configure the Profile
-
-Copy the example configuration file
-```powershell
-cp ~\.psprofile\config.json.example ~\.psprofile\config.json
-```
-
-And adapt the configuration to your need
-
-```jsonc
 {
     "MGraph": {
-        "Scope": [                              // Scopes for the MG-Graph Connection
+        "Scope": [
             "User.ReadWrite.All",
             "Group.ReadWrite.All"
         ],
-        "Properties": {                         // List of Properties to be collected from Get-Mg<Resource>
+        "Properties": {
             "Users": [
                 "AccountEnabled",
                 "City",
@@ -92,10 +60,10 @@ And adapt the configuration to your need
     },
     "Azure": {
         "Subscriptions": {
-            "EmmaIT": ""                // Subscription ID
+            "EmmaIT": ""
         },
         "Account": "",
-        "VMs": {                        // List of VMs which need to have their rules adapted
+        "VMs": {
             "Animatronio": {
                 "NSG": "",
                 "RG": "",
@@ -104,7 +72,6 @@ And adapt the configuration to your need
         }
     },
     "HomeOffice": {
-        "Hostname": ""                    // DNS Name from Home Office Internet connection, used to adapt the Firewall Rules for VMs
+        "Hostname": ""
     }
 }
-```
