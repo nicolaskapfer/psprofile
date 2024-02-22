@@ -4,6 +4,9 @@ Write-Host "    Running personal Profile" -ForegroundColor Cyan
 #Import-Module oh-my-posh -UseWindowsPowerShell
 Import-Module KNSModulesDocsGenerator -Force 3>$null
 
+Write-Host "    Initiating Zoxide" -ForegroundColor DarkCyan
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
+
 Write-Host "    Import personal configuration" -ForegroundColor DarkCyan
 # Import Config
 $myconfig = Import-Config "~\.psprofile\config.json"
@@ -30,7 +33,7 @@ $PS = @{
 
 Write-Host "    Set Properties for Microsoft.Graph" -ForegroundColor DarkCyan
 $MgProperties = @{
-   Scope  = $myconfig.MGraph.Scopes
+   Scope  = $myconfig.MGraph.Scope
    Users  = $myconfig.MGraph.Properties.Users
    Groups = $myconfig.MGraph.Properties.Groups
 }
@@ -52,8 +55,12 @@ if([string]::IsNullOrEmpty((Get-MgContext))){
 
 
 if([string]::IsNullOrEmpty((Get-AzContext).Account.Id)){
-   Write-Host "    Connecting to Azure..." -ForegroundColor DarkCyan 
-   Connect-AzAccount -Subscription $myconfig.Azure.Subscriptions.EmmaIT -AccountId $myconfig.Azure.Account | Out-Null
+   if((Get-AzContext).Account.Id -ne "a.nicolas.kapfer@emma-sleep.com"){
+      Write-Host "    Connecting to Azure...(SubscriptionID: $($myconfig.Azure.Subscriptions.EmmaIT))" -ForegroundColor DarkCyan 
+      Connect-AzAccount -Subscription $myconfig.Azure.Subscriptions.EmmaIT -AccountId $myconfig.Azure.Account | Out-Null
+   }else{
+      Write-Host "    Already connected to Azure as '$((Get-AzContext).Account.Id)'" -ForegroundColor DarkGreen
+   }
 }else{
    Write-Host "    Already connected to Azure as '$((Get-AzContext).Account.Id)'" -ForegroundColor DarkGreen
 }
