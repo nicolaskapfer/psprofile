@@ -4,9 +4,6 @@ Write-Host "    Running personal Profile" -ForegroundColor Cyan
 #Import-Module oh-my-posh -UseWindowsPowerShell
 Import-Module KNSModulesDocsGenerator -Force 3>$null
 
-Write-Host "    Initiating Zoxide" -ForegroundColor DarkCyan
-Invoke-Expression (& { (zoxide init powershell | Out-String) })
-
 Write-Host "    Import personal configuration" -ForegroundColor DarkCyan
 # Import Config
 $myconfig = Import-Config "~\.psprofile\config.json"
@@ -46,6 +43,9 @@ Write-Host "    Initiate Oh-my-Posh" -ForegroundColor DarkCyan
 # Set Oh-My-Posh
 oh-my-posh --init --shell pwsh --config ~\.psprofile\nicolaskapfer.omp.json | Invoke-Expression
 
+Write-Host "    Initiating Zoxide" -ForegroundColor DarkCyan
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
+
 if([string]::IsNullOrEmpty((Get-MgContext))){
    Write-Host "    Connecting to Microsoft Graph..." -ForegroundColor DarkCyan
    Connect-MgGraph -Scopes $MgProperties.Scopes
@@ -54,8 +54,8 @@ if([string]::IsNullOrEmpty((Get-MgContext))){
 }
 
 
-if([string]::IsNullOrEmpty((Get-AzContext).Account.Id)){
-   if((Get-AzContext).Account.Id -ne "a.nicolas.kapfer@emma-sleep.com"){
+if(-not [string]::IsNullOrEmpty((Get-AzContext).Account.Id)){
+   if((Get-AzContext).Account.Id -ne $myconfig.Azure.Account){
       Write-Host "    Connecting to Azure...(SubscriptionID: $($myconfig.Azure.Subscriptions.EmmaIT))" -ForegroundColor DarkCyan 
       Connect-AzAccount -Subscription $myconfig.Azure.Subscriptions.EmmaIT -AccountId $myconfig.Azure.Account | Out-Null
    }else{
