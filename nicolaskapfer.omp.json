@@ -2,71 +2,80 @@
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
   "blocks": [
     {
+      "type": "prompt",
       "alignment": "left",
       "segments": [
         {
-          "background": "#2f9c7f",
-          "foreground": "#ffffff",
-          "style": "diamond",
+          "properties": {
+            "cache_duration": "none"
+          },
           "template": " {{ if .SSHSession }}\uf817 {{ end }}{{ .UserName }}",
-          "type": "session"
+          "foreground": "#ffffff",
+          "background": "#2f9c7f",
+          "type": "session",
+          "style": "diamond"
         },
         {
-          "background": "#0CA0D8",
-          "foreground": "#ffffff",
-          "powerline_symbol": "\ue0b0",
           "properties": {
+            "cache_duration": "none",
             "folder_icon": " \uf07b ",
             "home_icon": "\uf7dd",
             "style": "folder"
           },
-          "style": "powerline",
           "template": " \uf07b\uf553{{ .Path }} ",
-          "type": "path"
+          "foreground": "#ffffff",
+          "powerline_symbol": "\ue0b0",
+          "background": "#0CA0D8",
+          "type": "path",
+          "style": "powerline"
         },
         {
+          "properties": {
+            "branch_icon": "\ue725 ",
+            "cache_duration": "none",
+            "fetch_status": true,
+            "fetch_upstream_icon": true
+          },
+          "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{ .BranchStatus }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}<#ef5350> \uf046 {{ .Staging.String }}</>{{ end }} ",
+          "foreground": "#011627",
+          "powerline_symbol": "\ue0b0",
           "background": "#FFFB38",
+          "type": "git",
+          "style": "powerline",
           "background_templates": [
             "{{ if or (.Working.Changed) (.Staging.Changed) }}#ffeb95{{ end }}",
             "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#c5e478{{ end }}",
             "{{ if gt .Ahead 0 }}#C792EA{{ end }}",
             "{{ if gt .Behind 0 }}#C792EA{{ end }}"
-          ],
-          "foreground": "#011627",
-          "powerline_symbol": "\ue0b0",
+          ]
+        },
+        {
           "properties": {
-            "branch_icon": "\ue725 ",
-            "fetch_status": true,
-            "fetch_upstream_icon": true
+            "cache_duration": "none"
           },
-          "style": "powerline",
-          "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{ .BranchStatus }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}<#ef5350> \uf046 {{ .Staging.String }}</>{{ end }} ",
-          "type": "git"
-        },
-        {
-          "background": "#ffffff",
-          "foreground": "#5398c2",
           "leading_diamond": "\ue0b6",
-          "style": "diamond",
-          "template": "\uf104<#f5bf45>\uf0e7</>\uf105 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }}",
           "trailing_diamond": "\ue0b4 ",
-          "type": "azfunc"
+          "template": "\uf104<#f5bf45>\uf0e7</>\uf105 {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }}",
+          "foreground": "#5398c2",
+          "background": "#ffffff",
+          "type": "azfunc",
+          "style": "diamond"
         },
         {
-          "background": "#33658A",
-          "foreground": "#ffffff",
           "properties": {
+            "cache_duration": "none",
             "time_format": "15:04:05"
           },
-          "style": "diamond",
-          "template": " {{ .CurrentDate | date .Format }} ",
           "trailing_diamond": "\ue0b0",
-          "type": "time"
+          "template": " {{ .CurrentDate | date .Format }} ",
+          "foreground": "#ffffff",
+          "background": "#33658A",
+          "type": "time",
+          "style": "diamond"
         }
-      ],
-      "type": "prompt"
+      ]
     }
   ],
-  "final_space": true,
-  "version": 2
+  "version": 3,
+  "final_space": true
 }

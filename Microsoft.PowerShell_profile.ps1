@@ -10,9 +10,11 @@ $myconfig = Import-Config "~\.psprofile\config.json"
 
 # Functions Definition for Aliases
 function Set-HomePS { Set-Location "~\OneDrive - Emma Sleep GmbH\Dokumente\PowerShell\"}
-
+function Sign-Script($FilePath) { Set-AuthenticodeSignature -FilePath $FilePath -Certificate (Get-ChildItem -path "Cert:\*$($myconfig.SigningCertificate)" -recurse) }
+function su { Start-Process pwsh.exe -Verb runas }
 # Define Aliases
 New-Alias -Name cdps -Value Set-HomePS
+New-Alias -Name sign -Value Sign-Script
 
 Write-Host "    Set some known Path" -ForegroundColor DarkCyan
 $PS5 = @{
@@ -53,7 +55,6 @@ if([string]::IsNullOrEmpty((Get-MgContext))){
    Write-Host "    Already connected to Microsoft Graph as '$((Get-MgContext).Account)'" -ForegroundColor DarkGreen
 }
 
-
 if(-not [string]::IsNullOrEmpty((Get-AzContext).Account.Id)){
    if((Get-AzContext).Account.Id -ne $myconfig.Azure.Account){
       Write-Host "    Connecting to Azure...(SubscriptionID: $($myconfig.Azure.Subscriptions.EmmaIT))" -ForegroundColor DarkCyan 
@@ -66,7 +67,7 @@ if(-not [string]::IsNullOrEmpty((Get-AzContext).Account.Id)){
 }
 
 # Change IP Access for Home Office (on Animatronio)
-$homeofficeIP = (Resolve-DnsName $myconfig.HomeOffice.Hostname).IPAddress
+$homeofficeIP = (Resolve-DnsName $myconfig.KnownIP.Home).IPAddress
 Write-Host "    Home Office IP: $($homeofficeIP)" -ForegroundColor Blue
 $nsg = Get-AzNetworkSecurityGroup -Name $myconfig.Azure.VMs.Animatronio.NSG -ResourceGroupName $myconfig.Azure.Vms.Animatronio.RG
 $fwr = $nsg | Get-AzNetworkSecurityRuleConfig -Name $myconfig.Azure.VMs.Animatronio.Rule
